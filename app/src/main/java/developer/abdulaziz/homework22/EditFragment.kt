@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import developer.abdulaziz.homework22.DB.MyDBHelper
 import developer.abdulaziz.homework22.DB.User
 import developer.abdulaziz.homework22.MyShared.MyData
-import developer.abdulaziz.homework22.MyShared.MyShared
 import developer.abdulaziz.homework22.databinding.FragmentEditBinding
 
 class EditFragment : Fragment() {
@@ -22,9 +21,8 @@ class EditFragment : Fragment() {
     ): View {
         binding = FragmentEditBinding.inflate(layoutInflater)
         binding.apply {
-            MyShared.init(root.context)
-            val list = MyShared.sharedList
             myDBHelper = MyDBHelper(root.context)
+            val list = myDBHelper.readUser()
 
             editMovie.setText(list[MyData.myPos].name)
             editAuthorMovie.setText(list[MyData.myPos].author)
@@ -43,8 +41,6 @@ class EditFragment : Fragment() {
                     user.about = about
                     user.data = date
                     myDBHelper.updateUser(user)
-                    list[MyData.myPos] = user
-                    MyShared.sharedList = list
                     findNavController().popBackStack()
                 } else {
                     Toast.makeText(root.context, "Ma'lumot yetarli emas", Toast.LENGTH_SHORT).show()

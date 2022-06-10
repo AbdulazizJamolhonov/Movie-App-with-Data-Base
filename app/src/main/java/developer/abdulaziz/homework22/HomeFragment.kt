@@ -8,10 +8,8 @@ import androidx.navigation.fragment.findNavController
 import developer.abdulaziz.homework22.Adapters.HomeAdapter
 import developer.abdulaziz.homework22.Adapters.MyOnClickListener
 import developer.abdulaziz.homework22.DB.MyDBHelper
-import developer.abdulaziz.homework22.DB.MyDBObject
 import developer.abdulaziz.homework22.DB.User
 import developer.abdulaziz.homework22.MyShared.MyData
-import developer.abdulaziz.homework22.MyShared.MyShared
 import developer.abdulaziz.homework22.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -25,14 +23,12 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         binding.apply {
             myDBHelper = MyDBHelper(root.context)
-            MyShared.init(root.context)
-            val list = MyShared.sharedList
 
             imageAdd.setOnClickListener {
                 findNavController().navigate(R.id.addFragment)
             }
 
-            homeAdapter = HomeAdapter(list, object : MyOnClickListener {
+            homeAdapter = HomeAdapter(myDBHelper.readUser(), object : MyOnClickListener {
                 override fun editMovie(user: User, position: Int) {
                     MyData.myPos = position
                     findNavController().navigate(R.id.editFragment, bundleOf("userInfo" to user))
@@ -40,10 +36,7 @@ class HomeFragment : Fragment() {
 
                 override fun deleteMovie(user: User, position: Int) {
                     myDBHelper.deleteUser(user)
-                    list.remove(user)
-                    MyShared.sharedList = list
-                    homeAdapter.notifyItemRemoved(list.size)
-                    homeAdapter.notifyItemRangeChanged(position, list.size)
+                    homeAdapter.notifyItemRemoved(position)
                 }
 
                 override fun onClick(position: Int) {

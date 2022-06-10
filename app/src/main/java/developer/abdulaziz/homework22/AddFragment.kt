@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import developer.abdulaziz.homework22.DB.MyDBHelper
 import developer.abdulaziz.homework22.DB.User
-import developer.abdulaziz.homework22.MyShared.MyShared
 import developer.abdulaziz.homework22.databinding.FragmentAddBinding
 
 class AddFragment : Fragment() {
@@ -21,8 +20,6 @@ class AddFragment : Fragment() {
     ): View {
         binding = FragmentAddBinding.inflate(layoutInflater)
         binding.apply {
-            MyShared.init(root.context)
-            val list = MyShared.sharedList
             addSave.setOnClickListener {
                 if (addMovie.text.isNotEmpty() && authorMovie.text.isNotEmpty() && aboutMovie.text.isNotEmpty() && dataMovie.text.isNotEmpty()) {
                     val user = User(
@@ -33,8 +30,6 @@ class AddFragment : Fragment() {
                     )
                     myDBHelper = MyDBHelper(root.context)
                     myDBHelper.createUser(user)
-                    list.add(user)
-                    MyShared.sharedList = list
                     findNavController().popBackStack()
                 } else {
                     Toast.makeText(root.context, "Ma'lumot yetarli emas", Toast.LENGTH_SHORT).show()
