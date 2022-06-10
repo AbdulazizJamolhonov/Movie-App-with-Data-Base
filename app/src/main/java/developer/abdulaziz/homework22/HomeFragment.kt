@@ -39,7 +39,6 @@ class HomeFragment : Fragment() {
                     myDBHelper.deleteUser(user)
                     list.removeAt(position)
                     homeAdapter.notifyItemRemoved(position)
-                    homeAdapter.notifyItemRangeChanged(position, list.size)
                 }
 
                 override fun onClick(position: Int) {

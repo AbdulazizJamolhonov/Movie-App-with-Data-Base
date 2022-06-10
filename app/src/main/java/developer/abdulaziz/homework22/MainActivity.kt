@@ -1,12 +1,9 @@
 package developer.abdulaziz.homework22
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import developer.abdulaziz.homework22.DB.User
 import developer.abdulaziz.homework22.databinding.ActivityMainBinding
-import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
