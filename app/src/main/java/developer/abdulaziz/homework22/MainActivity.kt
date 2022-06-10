@@ -18,17 +18,3 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean = findNavController(R.id.my_container).navigateUp()
 }
-
-fun main() {
-    var number = 1
-    val array = ArrayList<Int>()
-    val text = Scanner(System.`in`).nextInt()
-    while (number != 0) {
-        if (text % 2 == 0) {
-            number /= text
-            array.add(0)
-        } else {
-
-        }
-    }
-}
