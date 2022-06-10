@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import developer.abdulaziz.homework22.DB.MyDBHelper
-import developer.abdulaziz.homework22.DB.User
-import developer.abdulaziz.homework22.MyShared.MyData
+import developer.abdulaziz.homework22.Object.MyData
 import developer.abdulaziz.homework22.databinding.FragmentAboutBinding
 
 @SuppressLint("SetTextI18n")
