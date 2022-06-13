@@ -16,6 +16,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeAdapter: HomeAdapter
     private lateinit var myDBHelper: MyDBHelper
+    private lateinit var list: ArrayList<User>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,11 +24,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         binding.apply {
             myDBHelper = MyDBHelper(root.context)
-            val list = myDBHelper.readUser()
-
-            imageAdd.setOnClickListener {
-                findNavController().navigate(R.id.addFragment)
-            }
+            list = myDBHelper.readUser()
 
             homeAdapter = HomeAdapter(list, object : MyOnClickListener {
                 override fun editMovie(user: User, position: Int) {
@@ -39,6 +36,7 @@ class HomeFragment : Fragment() {
                     myDBHelper.deleteUser(user)
                     list.removeAt(position)
                     homeAdapter.notifyItemRemoved(position)
+                    myVis()
                 }
 
                 override fun onClick(position: Int) {
@@ -48,7 +46,26 @@ class HomeFragment : Fragment() {
             })
             myRv.adapter = homeAdapter
 
+            myVis()
+
             return binding.root
         }
+    }
+
+    private fun myVis() {
+        if (list.isEmpty()) myBtn()
+        else myImg()
+    }
+
+    private fun myBtn() {
+        binding.btnAdd.visibility = View.VISIBLE
+        binding.imageAdd.visibility = View.GONE
+        binding.btnAdd.setOnClickListener { findNavController().navigate(R.id.addFragment) }
+    }
+
+    private fun myImg() {
+        binding.btnAdd.visibility = View.GONE
+        binding.imageAdd.visibility = View.VISIBLE
+        binding.imageAdd.setOnClickListener { findNavController().navigate(R.id.addFragment) }
     }
 }
